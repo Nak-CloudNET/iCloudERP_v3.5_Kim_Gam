@@ -198,7 +198,7 @@
                                             <tr>
                                                 <td style="width: 25%;">ឈ្មោះក្រុមហ៊ុន​​​​​​ឬអតិថិជន</td>
                                                 <td style="width: 5%;">:</td>
-                                                <td style="width: 30%;"><?= $customer->company ?></td>
+                                                <td style="width: 30%;"><?= $customer->name_kh ?></td>
                                             </tr>
                                             <tr>
                                                 <td>ទូរស័ព្ទលេខ</td>
@@ -214,7 +214,7 @@
                                                     <td><?= $customer->address ?></td>
                                                 <?php } ?>
                                             </tr>
-<?php //$this->erp->print_arrays($invs); ?>
+<?php //$this->erp->print_arrays($customer); ?>
                                             <tr>
                                                 <td style="width: 20% !important">លេខអត្តសញ្ញាណកម្ម អតប </td>
                                                 <td>:</td>
@@ -307,7 +307,7 @@
                     }
                     ?>
                     <tr class="border">
-                        <td style="border-bottom: 1px solid #FFF !important;vertical-align: middle; text-align: center"><?php KhmerNumDate($num); ?></td>
+                        <td style="border-bottom: 1px solid #FFF !important;vertical-align: middle; text-align: center"><?php echo KhmerNumDate($num); ?></td>
                         <td style="border-bottom: 1px solid #FFF !important;vertical-align: middle;text-align: center;">
                             <?=$row->product_code;?>
                         </td>
@@ -370,7 +370,7 @@
                     for($j=1;$j<=$k;$j++) {
                         if($discount != 0) { ?>
                             <tr class="border">
-                                    <td style="border-bottom: 1px solid #FFF !important;" height="30px" class="text-center"><?php KhmerNumDate($num); ?></td>
+                                    <td style="border-bottom: 1px solid #FFF !important;" height="30px" class="text-center"><?php echo KhmerNumDate($num); ?></td>
                                     <td style="border-bottom: 1px solid #FFF !important;"></td>
                                     <td style="border-bottom: 1px solid #FFF !important;"></td>
                                     <td style="border-bottom: 1px solid #FFF !important;"></td>
@@ -381,7 +381,7 @@
                                 </tr>
                        <?php }else { ?>
                             <tr class="border">
-                                    <td style="border-bottom: 1px solid #FFF !important;" height="30px" class="text-center"><?php KhmerNumDate($num); ?></td>
+                                    <td style="border-bottom: 1px solid #FFF !important;" height="30px" class="text-center"><?php echo KhmerNumDate($num); ?></td>
                                     <td style="border-bottom: 1px solid #FFF !important;"></td>
                                     <td style="border-bottom: 1px solid #FFF !important;"></td>
                                     <td style="border-bottom: 1px solid #FFF !important;"></td>
@@ -393,7 +393,7 @@
                         $num++;
                     } ?>
                             <tr class="border">
-                                    <td style="border-top: 1px solid #FFF !important;" height="30px" class="text-center"><?php KhmerNumDate($num); ?></td>
+                                    <td style="border-top: 1px solid #FFF !important;" height="30px" class="text-center"><?php echo KhmerNumDate($num); ?></td>
                                     <td style="border-top: 1px solid #FFF !important;"></td>
                                     <td style="border-top: 1px solid #FFF !important;"></td>
                                     <td style="border-top: 1px solid #FFF !important;"></td>

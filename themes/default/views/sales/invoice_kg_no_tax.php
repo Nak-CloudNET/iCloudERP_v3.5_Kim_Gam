@@ -190,7 +190,7 @@
                                 <tr>
                                     <td style="width: 25%;">ឈ្មោះក្រុមហ៊ុន​​​​​​ឬអតិថិជន</td>
                                     <td style="width: 5%;">:</td>
-                                    <td style="width: 30%;"><?= $customer->company ?></td>
+                                    <td style="width: 30%;"><?= $customer->name_kh ?></td>
                                 </tr>
                                 <tr>
                                     <td>អាសយដ្ឋាន </td>
