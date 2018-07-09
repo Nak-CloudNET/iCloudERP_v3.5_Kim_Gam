@@ -16,7 +16,7 @@
         width: 100%;
         margin: 20px auto;
         padding: 10px;
-        font-size: 14px;
+        font-size: 16px;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         position:relative;
         font-family: "DaunPenh";
@@ -52,17 +52,11 @@
             background: #444 !important;
 
         }
-        tfoot {
-            display: table-footer-group;
-            -webkit-display: table-footer-group;
-            page-break-after: always;
-        }
+
         .invoice_label {
             padding-left: 0 !important;
         }
-        #footer {
-            bottom: 10px !important;
-        }
+
         #note{
             max-width: 95% !important;
             margin: 0 auto !important;
@@ -87,13 +81,13 @@
         font-size: 18px;
     }
 
-    .table > thead > tr > th,.table > thead > tr > td, tbody > tr > th, .table > tfoot > tr > th, .table > tbody > tr > td, .table > tfoot > tr > td{
+    .table > thead > tr > th,.table > thead > tr > td, tbody > tr > th{
         padding:5px;
     }
 
     h3{
-        font-family:"Khmer OS Muol" !important;
-        -mox-font-family:"Khmer OS Muol";
+        font-family:"Khmer OS Muol Light" !important;
+        -mox-font-family:"Khmer OS Muol Light";
         font-size: 15px;
         margin-top: 0px;
         margin-bottom: 0px;
@@ -139,6 +133,11 @@
     <div class="row">
         <table class="table">
             <thead>
+            <div class="col-sm-12 col-xs-12 text-right">
+                <button type="button" class="btn btn-xs btn-default no-print pull-right" style="margin-right:15px;" onclick="window.print();">
+                    <i class="fa fa-print"></i> <?= lang('print'); ?>
+                </button>
+            </div>
             <tr class="thead" style="border-left:none;border-right: none;border-top:none;">
                 <th colspan="9" style="border-left:none;border-right: none;border-top:none;border-bottom: 1px solid #000 !important;">
                     <div class="row" style="margin-top: 0px !important;">
@@ -148,10 +147,10 @@
                             <?php } ?>
                         </div>
                         <?php //$this->erp->print_arrays($biller); ?>
-                        <div  class="col-sm-9 col-xs-9 company_addr "  style="margin-top: -10px !important;">
+                        <div  class="col-sm-7 col-xs-7 company_addr "  style="margin-top: -10px !important;">
                             <div class="myhide">
                                 <?php if($biller->company) { ?>
-                                    <h4 style="font-family: Khmer OS Muol Light !important;font-size: 19px;text-align: left !important;"><b><?= $biller->company_kh ?></b></h4>
+                                    <h4 style="font-family: Khmer OS Muol Light !important;font-size: 19px;text-align: center !important;"><b><?= $biller->company_kh ?></b></h4>
                                 <?php } ?>
                                 <div style="margin-top: 15px;text-align: left !important;">
                                     <?php if(!empty($biller->vat_no)) { ?>
@@ -168,27 +167,18 @@
 
                                 </div>
                             </div>
-                            <div class="invoice" style="margin-top:20px;">
-                                <center>
-                                    <h3><b>វិក្កយបត្រ</b></h3>
-                                </center>
-
-                            </div>
-                        </div>
-                        <div class="col-sm-2 col-xs-2 pull-right">
-                            <!--<div class="row">
-                                <button type="button" class="btn btn-xs btn-default no-print pull-right" style="margin-right:15px;" onclick="window.print();">
-                                    <i class="fa fa-print"></i> <?= lang('print'); ?>
-                                </button>
-                            </div>
-                            <div class="row">
-                                <button type="button" class="btn btn-xs btn-default no-print pull-right " id="hide" style="margin-right:15px;" onclick="">
-                                    <i class="fa"></i> <?= lang('Hide/Show_header'); ?>
-                                </button>
-                            </div>-->
 
                         </div>
+
+
                     </div>
+                    <div style="margin-top:20px;">
+                        <center>
+                            <h3><b>វិក្កយបត្រ</b></h3>
+                        </center>
+
+                    </div><br>
+
                     <div class="row" style="text-align: left;">
                         <div class="col-sm-7 col-xs-7">
                             <table >
@@ -196,6 +186,7 @@
                                     <td style="width: 25%;font-size: 16px;font-family: 'Khmer OS Muol Light';"><b>អតិថិជនៈ</b></td>
 
                                 </tr>
+                                <?php //$this->erp->print_arrays($customer);?>
                                 <tr>
                                     <td style="width: 25%;">ឈ្មោះក្រុមហ៊ុន​​​​​​ឬអតិថិជន</td>
                                     <td style="width: 5%;">:</td>
@@ -233,7 +224,7 @@
                         <div class="col-sm-5 col-xs-5">
                             <table class="noPadding" border="none">
                                 <tr>
-                                    <td style="width: 45%;">លេខរៀងវិក័យបត្រ</sup></td>
+                                    <td style="width: 45%;">លេខរៀងវិក័្កយបត្រ</sup></td>
                                     <td style="width: 5%;">:</td>
                                     <td style="width: 50%;"><?= $invs->reference_no ?></td>
                                 </tr>
@@ -268,10 +259,28 @@
 
             <?php
 
-            $no = 1;
+            $num = 1;
             $erow = 1;
             $totalRow = 0;
+            function KhmerNumDate($num){
+                $num = str_replace('1', '១', $num);
+                $num = str_replace('2', '២', $num);
+                $num = str_replace('3', '៣', $num);
+                $num = str_replace('4', '៤', $num);
+                $num = str_replace('5', '៥', $num);
+                $num = str_replace('6', '៦', $num);
+                $num = str_replace('7', '៧', $num);
+                $num = str_replace('8', '៨', $num);
+                $num = str_replace('9', '៩', $num);
+                $num = str_replace('0', '០', $num);
+                return $num;
+
+            }
+
             foreach ($rows as $row) {
+
+
+
                 $free = lang('free');
                 $product_unit = '';
                 $total = 0;
@@ -293,7 +302,7 @@
                 }
                 ?>
                 <tr class="border">
-                    <td style="border-bottom: 1px solid #FFF !important;vertical-align: middle; text-align: center"><?php echo $no ?></td>
+                    <td style="border-bottom: 1px solid #FFF !important;vertical-align: middle; text-align: center"><?php echo KhmerNumDate($num); ?></td>
                     <td style="border-bottom: 1px solid #FFF !important;vertical-align: middle;">
                         <?=$row->product_name;?>
                     </td>
@@ -338,7 +347,7 @@
                 </tr>
 
                 <?php
-                $no++;
+                $num++;
                 $erow++;
                 $totalRow++;
 //                    if ($totalRow % 25 == 0) {
@@ -351,46 +360,46 @@
             if($erow<11){
                 $k=10 - $erow;
                 for($j=1;$j<=$k;$j++) {
-                    if($discount != 0) {
-                        echo  '<tr class="border">
-                                    <td style="border-bottom: 1px solid #FFF !important;" height="30px" class="text-center">'.$no.'</td>
+                    if($discount != 0) { ?>
+                        <tr class="border">
+                                    <td style="border-bottom: 1px solid #FFF !important;" height="30px" class="text-center"><?php echo KhmerNumDate($num); ?></td>
                                     <td style="border-bottom: 1px solid #FFF !important;"></td>
                                     <td style="border-bottom: 1px solid #FFF !important;"></td>
                                     <td style="border-bottom: 1px solid #FFF !important;"></td>
                                     <td style="border-bottom: 1px solid #FFF !important;"></td>
                                     <td style="border-bottom: 1px solid #FFF !important;"></td>
                                     <td style="border-bottom: 1px solid #FFF !important;"></td>
-                                </tr>';
-                    }else {
-                        echo  '<tr class="border">
-                                    <td style="border-bottom: 1px solid #FFF !important;" height="30px" class="text-center">'.$no.'</td>
+                                </tr>
+                    <?php }else { ?>
+                        <tr class="border">
+                                    <td style="border-bottom: 1px solid #FFF !important;" height="30px" class="text-center"><?php echo KhmerNumDate($num); ?></td>
                                     <td style="border-bottom: 1px solid #FFF !important;"></td>
                                     <td style="border-bottom: 1px solid #FFF !important;"></td>
                                     <td style="border-bottom: 1px solid #FFF !important;"></td>
                                     <td style="border-bottom: 1px solid #FFF !important;"></td>
                                     <td style="border-bottom: 1px solid #FFF !important;"></td>
-                                </tr>';
-                    }
-                    $no++;
-                }
-                echo  '<tr class="border">
-                                    <td style="border-top: 1px solid #FFF !important;" height="30px" class="text-center">'.$no.'</td>
+                                </tr>
+                    <?php }
+                    $num++;
+                }?>
+                <tr class="border">
+                                    <td style="border-top: 1px solid #FFF !important;" height="30px" class="text-center"><?php echo KhmerNumDate($num); ?></td>
                                     <td style="border-top: 1px solid #FFF !important;"></td>
                                     <td style="border-top: 1px solid #FFF !important;"></td>
                                     <td style="border-top: 1px solid #FFF !important;"></td>
                                     <td style="border-top: 1px solid #FFF !important;"></td>
                                     <td style="border-top: 1px solid #FFF !important;"></td>
-                                </tr>';
-            }else{
-                echo  '<tr class="border">
+                                </tr>
+           <?php }else{ ?>
+                <tr class="border">
                                 <td style="border-top: 1px solid #FFF !important;"></td>
                                 <td style="border-top: 1px solid #FFF !important;"></td>
                                 <td style="border-top: 1px solid #FFF !important;"></td>
                                 <td style="border-top: 1px solid #FFF !important;"></td>
                                 <td style="border-top: 1px solid #FFF !important;"></td>
                                 <td style="border-top: 1px solid #FFF !important;"></td>
-                            </tr>';
-            }
+                            </tr>
+           <?php }
             ?>
             <?php
             $row = 1;
@@ -406,7 +415,7 @@
 
             <tr class="border-foot">
 
-                <td rowspan="<?= $row; ?>" colspan="2" style="">
+                <td rowspan="<?= $row; ?>" colspan="2" style="border: 1px solid #000 !important;">
 
                 </td>
 
@@ -424,50 +433,42 @@
             </tr>
 
             </tbody>
-            <tfoot class="tfoot">
-            <tr>
-                <th colspan="9">
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <div id="footer" class="row" >
-                        <div class="col-sm-4 col-xs-4">
-                            <center>
-                                <hr style="margin:0; border:1px solid #000; width: 80%">
-                                <p style=" margin-top: 4px !important">ហត្ថលេខា និងឈ្មោះអ្នកទិញ</p>
-                                <!--<p style="margin-top:-10px; ">Customer's Signature & Name</p>-->
-                            </center>
-                        </div>
-                        <div class="col-sm-4 col-xs-4">
-                            <center>
-
-                            </center>
-                        </div>
-                        <div class="col-sm-4 col-xs-4">
-                            <center>
-                                <hr style="margin:0; border:1px solid #000; width: 80%">
-                                <p style="margin-top: 4px !important">ហត្ថលេខា និងឈ្មោះអ្នកលក់</p>
-                                <!-- <p style="margin-top:-10px;">Seller's Signature & Name</p>-->
-                            </center>
-                        </div>
-
-                    </div><br>
-                    <div id="footer" class="row" >
-                        <div class="col-sm-12 col-xs-12">
-                            <p>សម្គាល់៖ច្បាប់ដើមសម្រាប់អ្នកទិញ ច្បាប់ចម្លងសម្រាប់អ្នកលក់</p>
-                        </div>
-                    </div>
-                </th>
-            </tr>
-
-
-            </tfoot>
-
         </table>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div id="footer" class="row" >
+                <div class="col-sm-4 col-xs-4">
+                    <center>
+                        <hr style="margin:0; border:1px solid #000; width: 80%">
+                        <p style=" margin-top: 4px !important">ហត្ថលេខា និងឈ្មោះអ្នកទិញ</p>
+                        <!--<p style="margin-top:-10px; ">Customer's Signature & Name</p>-->
+                    </center>
+                </div>
+                <div class="col-sm-4 col-xs-4">
+                    <center>
+
+                    </center>
+                </div>
+                <div class="col-sm-4 col-xs-4">
+                    <center>
+                        <hr style="margin:0; border:1px solid #000; width: 80%">
+                        <p style="margin-top: 4px !important">ហត្ថលេខា និងឈ្មោះអ្នកលក់</p>
+                        <!-- <p style="margin-top:-10px;">Seller's Signature & Name</p>-->
+                    </center>
+                </div>
+
+            </div><br>
+            <div id="footer" class="row" >
+                <div class="col-sm-12 col-xs-12">
+                    <p>សម្គាល់៖ច្បាប់ដើមសម្រាប់អ្នកទិញ ច្បាប់ចម្លងសម្រាប់អ្នកលក់</p>
+                </div>
+            </div><br>
+
     </div>
 
     <div style="width: 821px;margin: 20px">

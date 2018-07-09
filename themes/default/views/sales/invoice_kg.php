@@ -8,8 +8,8 @@
 	<link href="<?php echo $assets ?>styles/custome.css" rel="stylesheet">
 </head>
 <style>
-	body {
-		font-size: 14px !important;
+    .container {
+		font-size: 16px !important;
 	}
 
 	@media print {
@@ -19,6 +19,7 @@
 		.container {
 			height: 21cm !important;
 			margin-top: 0px !important;
+            font-size: 16px !important;
 		}
 		.customer_label {
 			padding-left: 0 !important;
@@ -86,6 +87,7 @@
 	}
 	
 </style>
+
 <body>
 	<br>
 	<div class="container" style="width: 821px;margin: 0 auto;">
@@ -118,7 +120,7 @@
             <?php //$this->erp->print_arrays($customer); ?>
 			<div class="row">
 				<div class="col-sm-7 col-xs-7" style="margin-top: -20px !important">
-					<table style="font-size: 12px;">
+					<table style="font-size: 16px;">
 
 						<tr>
 							<td>អតិថិជន <br>Customer Name</td>
@@ -151,7 +153,7 @@
 					</table>
 				</div>
 				<div class="col-sm-5 col-xs-5" style="margin-top: -20px !important">
-					<table style="font-size: 12px;">
+					<table style="font-size: 16px;">
 						<tr>
 							<td>លេខរៀងវិក្កយបត្រ <br>Invoice No</td>
 							<td>&nbsp; : &nbsp; </td>
@@ -178,11 +180,11 @@
 					$cols = 7;
 				}
 			?>
-            <?php $this->erp->print_arrays($invs); ?>
+            <?php //$this->erp->print_arrays($invs); ?>
 			<div class="row">
 				<div class="col-sm-12 col-xs-12">
 					<table class="table table-bordered" style="margin-top: 10px;">
-						<tbody style="font-size: 11px;">
+						<tbody style="font-size: 16px;">
 							<tr class="thead" style="">
 								<th>ល.រ<br /><?= strtoupper(lang('no')) ?></th>
 								<th>បរិយាយមុខទំនិញ<br /><?= strtoupper(lang('description')) ?></th>
@@ -215,7 +217,7 @@
 									}
 							?>
 								<tr>
-									<td style="border-bottom: 1px solid #FFF !important;vertical-align: middle; text-align: center"><?php echo $no ?></td>
+									<td style="border-bottom: 1px solid #FFF !important;vertical-align: middle; text-align: center;font-family: 'Khmer OS' !important;"><?php echo $no ?></td>
 
 									<td style="border-bottom: 1px solid #FFF !important;vertical-align: middle;">
 										<?=$row->product_name;?>
@@ -364,13 +366,13 @@
                             <?php if ($invs->order_discount != 0) : ?>
                             <tr>
                                 <td colspan="<?= $col; ?>" style="border-bottom: 1px solid #FFF !important;text-align: right; font-weight: bold;">បញ្ចងតម្លៃ/ Discount</td>
-                                <td align="right">$<?= $this->erp->formatQuantity($invs->order_discount); ?></td>
+                                <td align="right">(<?= $this->erp->formatQuantity($invs->order_discount_id); ?>%) <?= $this->erp->formatMoney($invs->order_discount); ?></td>
                             </tr>
                             <?php endif; ?>
                             <?php if ($invs->order_tax != 0) : ?>
                             <tr>
                                 <td colspan="<?= $col; ?>" style="border-bottom: 1px solid #FFF !important;text-align: right; font-weight: bold;">អតបណ ១០% / VAT 10%</td>
-                                <td align="right">$<?= $this->erp->formatQuantity($invs->order_tax); ?></td>
+                                <td align="right"><?= $this->erp->formatMoney($invs->order_tax); ?></td>
                             </tr>
                             <?php endif; ?>
 							<tr>
@@ -423,40 +425,40 @@
 			</div>
 			<?php } ?>
 		 </div>
-		 <div id="footer" class="row">
+		 <div id="footer"  class="row">
 			<div class="col-sm-2 col-xs-2">
 
 				<center>
-					<p style="font-size: 10px;">ហត្ថលេខាគណនេយ្យ</p>
-					<p style="margin-top:-10px;">ACCOUNTANT</p>
+					<p style="font-size: 14px;">ហត្ថលេខាគណនេយ្យ</p>
+					<p style="font-size: 14px;margin-top:-12px;">ACCOUNTANT</p>
 				</center>
 			</div>
 			<div class="col-sm-3 col-xs-3">
 
 				<center>
-					<p style="font-size: 10px;">ហត្ថលេខាប្រធានឃ្លាំង</p>
-					<p style="margin-top:-10px;">STOCK CONTROLLER</p>
+					<p style="font-size: 14px;">ហត្ថលេខាប្រធានឃ្លាំង</p>
+					<p style="font-size: 14px;margin-top:-10px;">STOCK CONTROLLER</p>
 				</center>
 			</div>
 			<div class="col-sm-2 col-xs-2">
 
 				<center>
-					<p style="font-size: 10px;">ហត្ថលេខាអ្នកពិនិត្យ</p>
-					<p style="margin-top:-10px;">CHECKED BY</p>
+					<p style="font-size: 14px;">ហត្ថលេខាអ្នកពិនិត្យ</p>
+					<p style="font-size: 14px;margin-top:-10px;">CHECKED BY</p>
 				</center>
 			</div>
 			<div class="col-sm-2 col-xs-2">
 
 				<center>
-					<p style="font-size: 10px;">ហត្ថលេខាអ្នកប្រគល់</p>
-					<p style="margin-top:-10px;">DELIVERED BY</p>
+					<p style="font-size: 14px;">ហត្ថលេខាអ្នកប្រគល់</p>
+					<p style="font-size: 14px;margin-top:-10px;">DELIVERED BY</p>
 				</center>
 			</div>
 			<div class="col-sm-3 col-xs-3">
 
 				<center>
-					<p style="font-size: 10px;">ហត្ថលេខាអតិថិជន</p>
-					<p style="margin-top:-10px;">CUSTOMER'S SIGNATURE</p>
+					<p style="font-size: 14px;">ហត្ថលេខាអតិថិជន</p>
+					<p style="margin-top:-10px;font-size: 14px;">CUSTOMER'S SIGNATURE</p>
 				</center>
 			</div>
 		</div>
