@@ -125,11 +125,12 @@
 						<tr>
 							<td>អតិថិជន <br>Customer Name</td>
 							<td>&nbsp; :</td>
-							<?php if(!empty($customer->name_kh)) { ?>
+                            <td>&nbsp;<?= $customer->name_kh;?></td>
+							<!--<?php if(!empty($customer->name_kh)) { ?>
 							<td>&nbsp;<?= $customer->name_kh;?></td>
 							<?php }else { ?>
 							<td>&nbsp;<?= $customer->name; ?></td>
-							<?php } ?>
+							<?php } ?>-->
 						</tr>
 
                         <tr>
