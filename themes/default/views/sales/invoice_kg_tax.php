@@ -16,9 +16,10 @@
         width: 100%;
         margin: 20px auto;
         padding: 10px;
-        font-size: 14px;
+        font-size: 16px;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         position:relative;
+        font-family: "DaunPenh";
     }
     .title-header tr{
         border: 1px solid #000 !important;
@@ -79,14 +80,9 @@
 
     }
 
-    body{
-        font-size: 12px !important;
-        font-family: "Khmer OS System";
-        -moz-font-family: "Khmer OS System";
-    }
     .header{
-        font-family:"Khmer OS Muol Light";
-        -moz-font-family: "Khmer OS System";
+        font-family:"Khmer OS Muol Light" !important;
+        -moz-font-family: "Khmer OS Muol" !important;
         font-size: 18px;
     }
 
@@ -96,9 +92,8 @@
     .title{
 
     }
-    h4{
-        font-family:"Khmer OS Muol" !important;
-        -mox-font-family:"Khmer OS Muol";
+    h3{
+        font-family:"Khmer OS Muol Light" !important;
         font-size: 15px;
         margin-top: 0px;
         margin-bottom: 0px;
@@ -152,36 +147,33 @@
                                         <img class="img-responsive myhide" src="<?= base_url() ?>assets/uploads/logos/<?= $biller->logo; ?>"id="hidedlo" style="width: 140px; " />
                                     <?php } ?>
                                 </div>
-                                <div  class="col-sm-7 col-xs-7 company_addr "  style="margin-top: -10px !important;">
+                                <div  class="col-sm-7 col-xs-7  "  style="margin-top: -10px !important;">
                                         <div class="myhide">
-                                            <center >
                                                 <?php if($biller->company) { ?>
-                                                    <h3 class="header"><?= $biller->company ?></h3>
+                                                    <h5 style="font-family: Khmer OS Muol Light !important;"><b><?= $biller->company_kh ?></b></h5>
                                                 <?php } ?>
-
-                                                <div style="margin-top: 15px;">
+                                                <div style="margin-top: 15px;text-align: left !important;">
                                                     <?php if(!empty($biller->vat_no)) { ?>
-                                                        <p>លេខអត្តសញ្ញាណកម្ម អតប (VAT No):&nbsp;<?= $biller->vat_no; ?></p>
+                                                        <p>លេខអត្តសញ្ញាណកម្ម អតប :&nbsp;<?= $biller->vat_no; ?></p>
                                                     <?php } ?>
 
                                                     <?php if(!empty($biller->address)) { ?>
-                                                        <p style="margin-top:-10px !important;">អាសយដ្ឋាន ៖ &nbsp;<?= $biller->address; ?></p>
+                                                        <p style="margin-top:-10px !important;">អាសយដ្ឋាន ៖ &nbsp;<?= $biller->cf4; ?></p>
                                                     <?php } ?>
 
                                                     <?php if(!empty($biller->phone)) { ?>
-                                                        <p style="margin-top:-10px ;">ទូរស័ព្ទលេខ (Tel):&nbsp;<?= $biller->phone; ?></p>
+                                                        <p style="margin-top:-10px ;">ទូរស័ព្ទលេខ :&nbsp;<?= $biller->phone; ?></p>
                                                     <?php } ?>
 
-                                                    <?php if(!empty($biller->email)) { ?>
-                                                        <p style="margin-top:-10px !important;">សារអេឡិចត្រូនិច (E-mail):&nbsp;<?= $biller->email; ?></p>
-                                                    <?php } ?>
                                                 </div>
+
+
 
                                             </center>
                                         </div>
                                         <div class="invoice" style="margin-top:20px;">
                                             <center>
-                                                <h4><b>វិក្កយបត្រអាករ</b></h4>
+                                                <h3><b>វិក្កយបត្រអាករ</b></h3>
                                             </center>
 
                                         </div>
@@ -204,7 +196,7 @@
                                 <div class="col-sm-7 col-xs-7">
                                     <table >
                                             <tr>
-                                                <td style="width: 25%;font-size: 18px;font-family: 'Khmer OS Muol Light';"><b>អតិថិជនៈ</b></td>
+                                                <td style="width: 25%;font-size: 16px;font-family: Khmer OS Muol Light !important;"><b>អតិថិជនៈ</b></td>
 
                                             </tr>
                                             <tr>
@@ -226,7 +218,7 @@
                                                     <td><?= $customer->address ?></td>
                                                 <?php } ?>
                                             </tr>
-
+<?php //$this->erp->print_arrays($invs); ?>
                                             <tr>
                                                 <td style="width: 20% !important">លេខអត្តសញ្ញាណកម្ម អតប </td>
                                                 <td>:</td>
@@ -235,7 +227,7 @@
                                             <tr>
                                                 <td style="width: 20% !important">លេខបញ្ជាទិញ</td>
                                                 <td>:</td>
-                                                <td><?= $customer->vat_no ?></td>
+                                                <td><?= $invs->so_no ?></td>
                                             </tr>
 
                                     </table>
@@ -259,12 +251,12 @@
                         </th>
                     </tr>
                     <tr class="border thead print" style="">
-                        <th>ល.រ</th>
-                        <th>លេខកូដទំនិញ</th>
-                        <th>បរិយាយមុខទំនិញ</th>
-                        <th>បរិមាណ</th>
-                        <th>ចំនួន</th>
-                        <th>ថ្លៃឯកតា</th>
+                        <th><b>ល.រ</b></th>
+                        <th><b>លេខកូដទំនិញ</b></th>
+                        <th><b>បរិយាយមុខទំនិញ</b></th>
+                        <th><b>បរិមាណ</b></th>
+                        <th><b>ចំនួន</b></th>
+                        <th><b>ថ្លៃឯកតា</b></th>
 
                         <!--<?php if ($Settings->product_discount) { ?>
                             <th>បញ្ចុះតម្លៃ</th>
@@ -272,7 +264,7 @@
                         <?php if ($Settings->tax1) { ?>
                             <th style="width: 10%">ពន្ធទំនិញ</th>
                         <?php } ?>-->
-                        <th>ថ្លៃទំនិញ</th>
+                        <th><b>ថ្លៃទំនិញ</b></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -523,10 +515,10 @@
             <a class="btn btn-primary no-print" href="<?= site_url('sales/add'); ?>" style="border-radius: 0">
                 <i class="fa fa-hand-o-left" aria-hidden="true"></i>&nbsp;<?= lang("Back To Add Sale"); ?>
             </a>
-            <a class="btn btn-danger no-print" href="<?= site_url("sales/invoice_kc/". $invs->id); ?>" style="border-radius: 0">
+            <a class="btn btn-danger no-print" href="<?= site_url("sales/invoice_kg/". $invs->id); ?>" style="border-radius: 0">
                 <i class="fa fa-hand-o-left" aria-hidden="true"></i>&nbsp;<?= lang("Back To Standard Invoice"); ?>
             </a>
-            <a class="btn btn-success no-print" href="<?= site_url('sales/invoice_kc_no_tax/' . $invs->id) ?>" style="border-radius: 0">
+            <a class="btn btn-success no-print" href="<?= site_url('sales/invoice_kg_no_tax/' . $invs->id) ?>" style="border-radius: 0">
                 <i class="fa fa-hand-o-left" aria-hidden="true"></i>&nbsp;<?= lang("Back To No Tax Invoice"); ?>
             </a>
         </div>

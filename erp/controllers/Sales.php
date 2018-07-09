@@ -4396,7 +4396,7 @@ class Sales extends MY_Controller
 
 			$invoice_view = $this->Settings->invoice_view;
 			if($invoice_view == 0){
-                redirect("sales/print_st_invoice/" . $s->row()->id);
+                redirect("sales/invoice_kg/" . $s->row()->id);
 			}
 			else if($invoice_view == 1){
 				redirect("sales/invoice/".$s->row()->id);
@@ -17927,7 +17927,7 @@ function invoice_concrete_angkor($id=null)
 		$this->data['saleman'] = $this->site->getUser($inv->saleman_by);
         $this->load->view($this->theme .'sales/invoice_eng_tay',$this->data);
     }
-    function invoice_kc($id=null)
+    function invoice_kg($id=null)
     {
         $this->erp->checkPermissions('add', true, 'sales');
 
@@ -17966,9 +17966,9 @@ function invoice_concrete_angkor($id=null)
         $this->data['return_items'] = $return ? $this->sales_model->getAllReturnItems($return->id) : NULL;
         $this->data['title'] = "2";
         $this->data['sid'] = $id;
-        $this->load->view($this->theme .'sales/invoice_kc',$this->data);
+        $this->load->view($this->theme .'sales/invoice_kg',$this->data);
     }
-    function invoice_kc_tax($id=null)
+    function invoice_kg_tax($id=null)
     {
         $this->erp->checkPermissions('add', true, 'sales');
 
@@ -18007,9 +18007,9 @@ function invoice_concrete_angkor($id=null)
         $this->data['return_items'] = $return ? $this->sales_model->getAllReturnItems($return->id) : NULL;
         $this->data['title'] = "2";
         $this->data['sid'] = $id;
-        $this->load->view($this->theme .'sales/invoice_kc_tax',$this->data);
+        $this->load->view($this->theme .'sales/invoice_kg_tax',$this->data);
     }
-    function invoice_kc_no_tax($id=null)
+    function invoice_kg_no_tax($id=null)
     {
         $this->erp->checkPermissions('add', true, 'sales');
 
@@ -18048,7 +18048,7 @@ function invoice_concrete_angkor($id=null)
         $this->data['return_items'] = $return ? $this->sales_model->getAllReturnItems($return->id) : NULL;
         $this->data['title'] = "2";
         $this->data['sid'] = $id;
-        $this->load->view($this->theme .'sales/invoice_kc_no_tax',$this->data);
+        $this->load->view($this->theme .'sales/invoice_kg_no_tax',$this->data);
     }
 
     function invoice_kc_without_ctel($id=null)

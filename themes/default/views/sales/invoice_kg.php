@@ -99,9 +99,7 @@
 			<div class="row" style="margin-top: 20px;">
 		
 			<div class="col-sm-3 col-xs-3">
-				<?php if(!empty($biller->logo)) { ?>
-					<img src="<?= base_url() ?>assets/uploads/logos/<?= $biller->logo; ?>" style="width: 165px; " />
-				<?php } ?>
+
 			</div>
 			
 			<div class="col-sm-6 col-xs-6 company_addr" style="margin-top:15px !important;">
@@ -157,7 +155,7 @@
 						<tr>
 							<td>លេខរៀងវិក្កយបត្រ <br>Invoice No</td>
 							<td>&nbsp; : &nbsp; </td>
-							<td><span style="font-size: 14px; font-weight: bold"><?= $invs->reference_no ?></span></td>
+							<td><span style="font-size: 14px; "><?= $invs->reference_no ?></span></td>
 						</tr>
 						<tr>
 							<td>កាលបរិច្ឆេទ <br>Date</td>
@@ -167,7 +165,7 @@
 						<tr>
 							<td>អ្នកលក់ <br>Sale Rep</td>
 							<td>&nbsp; : &nbsp; </td>
-							<td><b><?= $user->username; ?></b></td>
+							<td><?= $user->username; ?></td>
 						</tr>
 					</table>
 				</div>
@@ -180,6 +178,7 @@
 					$cols = 7;
 				}
 			?>
+            <?php $this->erp->print_arrays($invs); ?>
 			<div class="row">
 				<div class="col-sm-12 col-xs-12">
 					<table class="table table-bordered" style="margin-top: 10px;">
@@ -290,14 +289,12 @@
                                 }
 							?>
 							<?php
-								$row = 3;
+								$row = 4;
 								$col =2;
 								if ($discount != 0) {
 									$col = 3;
 								}
-								if ($invs->grand_total != $invs->total) {
-									$row++;
-								}
+
 								if ($invs->order_discount != 0) {
 									$row++;
 									$col =2;
@@ -310,16 +307,8 @@
 									$row++;
 									$col =2;
 								}
-								if ($Settings->product_discount) {
-									$col = 2;
-								}
-								if($invs->paid != 0 && $invs->deposit != 0) {
-									$row += 3;
-								}elseif ($invs->paid != 0 && $invs->deposit == 0) {
-									$row += 2;
-								}elseif ($invs->paid == 0 && $invs->deposit != 0) {
-									$row += 2;
-								}
+
+
 							?>
 
                             <!--<?php if ($invs->grand_total != $invs->total) { ?>
@@ -372,12 +361,18 @@
                                 </td>
                                 <td align="right"><?=$this->erp->formatMoney($invs->total); ?></td>
                             </tr>
-
+                            <?php if ($invs->order_discount != 0) : ?>
                             <tr>
-                                <td colspan="<?= $col; ?>" style="border-bottom: 1px solid #FFF !important;text-align: right; font-weight: bold;">បញ្ចងតម្លៃ/ Discount <br>អតបណ ១០% / VAT 10%</td>
+                                <td colspan="<?= $col; ?>" style="border-bottom: 1px solid #FFF !important;text-align: right; font-weight: bold;">បញ្ចងតម្លៃ/ Discount</td>
+                                <td align="right">$<?= $this->erp->formatQuantity($invs->order_discount); ?></td>
+                            </tr>
+                            <?php endif; ?>
+                            <?php if ($invs->order_tax != 0) : ?>
+                            <tr>
+                                <td colspan="<?= $col; ?>" style="border-bottom: 1px solid #FFF !important;text-align: right; font-weight: bold;">អតបណ ១០% / VAT 10%</td>
                                 <td align="right">$<?= $this->erp->formatQuantity($invs->order_tax); ?></td>
                             </tr>
-
+                            <?php endif; ?>
 							<tr>
 
 								<td colspan="<?= $col; ?>" style="border-bottom: 1px solid #FFF !important;text-align: right; font-weight: bold;">សរុប <br>Grand Total
@@ -479,10 +474,10 @@
         <a class="btn btn-primary no-print" href="<?= site_url('sales/add'); ?>" style="border-radius: 0">
             <i class="fa fa-hand-o-left" aria-hidden="true"></i>&nbsp;<?= lang("Back To Add Sale"); ?>
         </a>
-        <a class="btn btn-success no-print" href="<?= site_url("sales/invoice_kc_no_tax/". $invs->id); ?>" style="border-radius: 0">
+        <a class="btn btn-success no-print" href="<?= site_url("sales/invoice_kg_no_tax/". $invs->id); ?>" style="border-radius: 0">
             <i class="fa fa-hand-o-left" aria-hidden="true"></i>&nbsp;<?= lang("Back To No Tax Invoice"); ?>
         </a>
-        <a class="btn btn-info no-print" href="<?= site_url('sales/invoice_kc_tax/' . $invs->id) ?>" style="border-radius: 0">
+        <a class="btn btn-info no-print" href="<?= site_url('sales/invoice_kg_tax/' . $invs->id) ?>" style="border-radius: 0">
             <i class="fa fa-hand-o-left" aria-hidden="true"></i>&nbsp;<?= lang("Back To Tax Invoice"); ?>
         </a>
 	</div>
