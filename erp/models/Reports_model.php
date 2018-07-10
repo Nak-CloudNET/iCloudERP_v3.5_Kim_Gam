@@ -3935,8 +3935,8 @@ ORDER BY
 	}
 	
 	public function getSalesExportByID($id){
-		$this->db
-                ->select("erp_sales.id, date, reference_no, biller, customer,
+        $this->db
+            ->select("erp_sales.id, date, reference_no, biller, customer,users.username AS saleman,
                             GROUP_CONCAT(CONCAT(" . $this->db->dbprefix('sale_items') . ".product_name, '(', " . $this->db->dbprefix('sale_items') . ".product_code , ')') SEPARATOR '\n') as iname, 
                             GROUP_CONCAT(CONCAT((ROUND(".$this->db->dbprefix('sale_items') . ".quantity)), '(', " . $this->db->dbprefix('sale_items') . ".unit_price , ')') SEPARATOR '\n') as iqty, 
                             GROUP_CONCAT(" . $this->db->dbprefix('products') . ".cost SEPARATOR '\n') as icost, 
@@ -3944,14 +3944,15 @@ ORDER BY
                             (grand_total-paid) as balance, 
                             payment_status, 
                             SUM(".$this->db->dbprefix('sale_items') . ".quantity) as total_qty", FALSE)
-                ->from('sales')
-                ->join('sale_items', 'sale_items.sale_id=sales.id', 'left')
-                ->join('products', 'products.id = sale_items.product_id', 'left')
-                ->join('warehouses', 'warehouses.id=sales.warehouse_id', 'left')
-                ->join('companies', 'companies.id=sales.customer_id','left')                
-                ->join('customer_groups','customer_groups.id=companies.customer_group_id','left')
-                ->where('erp_sales.id', $id)
-                ->group_by('sales.id');
+            ->from('sales')
+            ->join('sale_items', 'sale_items.sale_id=sales.id', 'left')
+            ->join('users', 'users.id = sales.saleman_by', 'left')
+            ->join('products', 'products.id = sale_items.product_id', 'left')
+            ->join('warehouses', 'warehouses.id=sales.warehouse_id', 'left')
+            ->join('companies', 'companies.id=sales.customer_id','left')
+            ->join('customer_groups','customer_groups.id=companies.customer_group_id','left')
+            ->where('erp_sales.id', $id)
+            ->group_by('sales.id');
         $q = $this->db->get();
         if ($q->num_rows() > 0) {
             return $q->row();

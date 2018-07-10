@@ -449,6 +449,12 @@
                                 <span class="hidden-sm hidden-xs"><?= lang('Invoice_KG_No_Tax') ?></span>
                             </a>
                         </div>
+                        <div class="btn-group">
+                            <a href="<?= site_url('sales/invoice_kg/'. $inv->id) ?>" target="_blank" class="tip btn btn-primary" title="<?= lang('Standard_Invoice') ?>">
+                                <i class="fa fa-print"></i>
+                                <span class="hidden-sm hidden-xs"><?= lang('Standard_Invoice') ?></span>
+                            </a>
+                        </div>
                        <!-- <div class="btn-group">
                             <a href="<?= site_url('sales/print_st_invoice/' . $inv->id) ?>" target="_blank" class="tip btn btn-primary" title="<?= lang('st_invoice') ?>">
                                 <i class="fa fa-print"></i>

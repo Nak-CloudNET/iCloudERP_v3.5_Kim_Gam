@@ -9,17 +9,15 @@
 </head>
 <style>
     .container {
-		font-size: 16px !important;
+		font-size: 12px !important;
 	}
 
 	@media print {
-		body {
-			font-size: 11px !important;
-		}
+
 		.container {
 			height: 21cm !important;
 			margin-top: 0px !important;
-            font-size: 16px !important;
+            font-size: 12px !important;
 		}
 		.customer_label {
 			padding-left: 0 !important;
@@ -72,12 +70,12 @@
 	
 	.inv h4:first-child {
 		font-family: Khmer Mool1 !important;
-		font-size: 16px !important;
+		font-size: 12px !important;
 	}
 	
 	.inv h4:last-child {
 		margin-top:5px !important;
-		font-size: 14px !important;
+		font-size: 12px !important;
 		font-weight: bold;
 		font-family: Times New Roman !important;
 	}
@@ -106,24 +104,24 @@
 			
 			<div class="col-sm-6 col-xs-6 company_addr" style="margin-top:15px !important;">
 				<center>
-                    <h4 style="font-family: 'Khmer OS Muol Light';">វិក្កយបត្រ</h4>
+                    <h4 style="font-family: Khmer OS Muol Light !important;">វិក្កយបត្រ</h4>
                     <h4 style="margin-top:-10px !important;">INVOICE</h4>
 				</center>
 				</div>
-				<div class="col-sm-3 col-xs-3 text-right">
-                    <p style="font-size: 18px; line-height: 20px !important;"><b>011 781 552</b></p>
-                    <p style="font-size: 18px; line-height: 20px !important;"><b>015 213 677</b></p>
-                    <p style="font-size: 18px; line-height: 20px !important;"><b>023 425 667</b></p>
+				<div class="col-sm-3 col-xs-3 text-right" style="font-size: 18px;line-height: 20px !important;">
+                    <p><b>011 781 552</b></p>
+                    <p><b>015 213 677</b></p>
+                    <p><b>023 425 667</b></p>
 				</div>
 			</div>
             <br>
             <?php //$this->erp->print_arrays($customer); ?>
 			<div class="row">
 				<div class="col-sm-7 col-xs-7" style="margin-top: -20px !important">
-					<table style="font-size: 16px;">
+					<table style="font-size: 12px !important;">
 
 						<tr>
-							<td>អតិថិជន <br>Customer Name</td>
+							<td style="width: 30%">អតិថិជន <br>Customer Name</td>
 							<td>&nbsp; :</td>
                             <td>&nbsp;<?= $customer->name_kh;?></td>
 							<!--<?php if(!empty($customer->name_kh)) { ?>
@@ -154,11 +152,11 @@
 					</table>
 				</div>
 				<div class="col-sm-5 col-xs-5" style="margin-top: -20px !important">
-					<table style="font-size: 16px;">
+					<table style="font-size: 12px !important;">
 						<tr>
 							<td>លេខរៀងវិក្កយបត្រ <br>Invoice No</td>
 							<td>&nbsp; : &nbsp; </td>
-							<td><span style="font-size: 14px; "><?= $invs->reference_no ?></span></td>
+							<td><span style="font-size: 12px; "><?= $invs->reference_no ?></span></td>
 						</tr>
 						<tr>
 							<td>កាលបរិច្ឆេទ <br>Date</td>
@@ -185,13 +183,13 @@
 			<div class="row">
 				<div class="col-sm-12 col-xs-12">
 					<table class="table table-bordered" style="margin-top: 10px;">
-						<tbody style="font-size: 16px;">
+						<tbody style="font-size: 14px;">
 							<tr class="thead" style="">
-								<th>ល.រ<br /><?= strtoupper(lang('no')) ?></th>
-								<th>បរិយាយមុខទំនិញ<br /><?= strtoupper(lang('description')) ?></th>
-								<th>បរិមាណ<br /><?= strtoupper(lang('Quantity')) ?></th>
-								<th>ថ្លៃឯកតា<br /><?= strtoupper(lang('unit_price')) ?></th>
-								<th>ថ្លៃទំនិញ<br /><?= strtoupper(lang('amount')) ?></th>
+								<th>ល.រ<br /><span style="font-size: 12px;"><?= strtoupper(lang('no')) ?></span></th>
+								<th>បរិយាយមុខទំនិញ<br /><span style="font-size: 12px;"><?= strtoupper(lang('description')) ?></span></th>
+								<th>បរិមាណ<br /><span style="font-size: 12px;"><?= strtoupper(lang('Quantity')) ?></span></th>
+								<th>ថ្លៃឯកតា<br /><span style="font-size: 12px;"><?= strtoupper(lang('unit_price')) ?></span></th>
+								<th>ថ្លៃទំនិញ<br /><span style="font-size: 12px;"><?= strtoupper(lang('amount')) ?></span></th>
 							</tr>
 							<?php
 								$no = 1;
@@ -217,7 +215,7 @@
 										}
 									}
 							?>
-								<tr>
+								<tr style="font-size: 12px !important;">
 									<td style="border-bottom: 1px solid #FFF !important;vertical-align: middle; text-align: center;font-family: 'Khmer OS' !important;"><?php echo $no ?></td>
 
 									<td style="border-bottom: 1px solid #FFF !important;vertical-align: middle;">
@@ -231,7 +229,7 @@
 									</td>
 
 									<td style="border-bottom: 1px solid #FFF !important;vertical-align: middle; text-align: right">
-										<?= $row->subtotal != 0 ? '$ '.$this->erp->formatQuantity($row->subtotal) : 'Free' ?>
+										<?= $row->subtotal != 0 ? $this->erp->formatMoney($row->subtotal) : 'Free' ?>
 									</td>
 								</tr>
 
@@ -353,7 +351,7 @@
 
 
 
-                            <tr style="">
+                            <tr style="font-size: 12px !important;">
                                 <td rowspan = "<?= $row; ?>" colspan="2" style="border-left: 1px solid #FFF !important; border-bottom: 1px solid #FFF !important;border-right: 1px solid #FFF !important;">
                                     <?php if (!empty($invs->invoice_footer)) { ?>
                                         <p><?= nl2br($invs->invoice_footer); ?></p>
@@ -365,18 +363,18 @@
                                 <td align="right"><?=$this->erp->formatMoney($invs->total); ?></td>
                             </tr>
                             <?php if ($invs->order_discount != 0) : ?>
-                            <tr>
-                                <td colspan="<?= $col; ?>" style="border-bottom: 1px solid #FFF !important;text-align: right; font-weight: bold;">បញ្ចងតម្លៃ/ Discount</td>
+                            <tr style="font-size: 12px !important;">
+                                <td colspan="<?= $col; ?>" style="border-bottom: 1px solid #FFF !important;text-align: right; font-weight: bold;">បញ្ចុះតម្លៃ/ Discount</td>
                                 <td align="right">(<?= $this->erp->formatQuantity($invs->order_discount_id); ?>%) <?= $this->erp->formatMoney($invs->order_discount); ?></td>
                             </tr>
                             <?php endif; ?>
                             <?php if ($invs->order_tax != 0) : ?>
-                            <tr>
-                                <td colspan="<?= $col; ?>" style="border-bottom: 1px solid #FFF !important;text-align: right; font-weight: bold;">អតបណ ១០% / VAT 10%</td>
+                            <tr style="font-size: 12px !important;">
+                                <td colspan="<?= $col; ?>" style="border-bottom: 1px solid #FFF !important;text-align: right; font-weight: bold;">អតប ១០% / VAT 10%</td>
                                 <td align="right"><?= $this->erp->formatMoney($invs->order_tax); ?></td>
                             </tr>
                             <?php endif; ?>
-							<tr>
+							<tr style="font-size: 12px !important;">
 
 								<td colspan="<?= $col; ?>" style="border-bottom: 1px solid #FFF !important;text-align: right; font-weight: bold;">សរុប <br>Grand Total
 
@@ -421,45 +419,46 @@
 			</div>
 			
 			<?php if($invs->note){ ?>
-			<div style="border-radius: 5px 5px 5px 5px;border:1px solid black;font-size: 10px !important;margin-top: 30px !important;height: auto;" id="note" id="note" class="col-md-12 col-xs-12">
-				<p style="margin-top:10px;">អ្នកចេញវិក្កយបត្រ&nbsp;:&nbsp;<strong><?php echo strip_tags($invs->note); ?></strong></p>
+			<div style="border-radius: 5px 5px 5px 5px;border:1px solid black;font-size: 10px !important;margin-top: 10px !important;margin-bottom: 20px !important;height: auto;" id="note" id="note" class="col-md-12 col-xs-12">
+				<p style="margin-top:10px;"><strong><?php echo strip_tags($invs->note); ?></strong></p>
 			</div>
 			<?php } ?>
 		 </div>
-		 <div id="footer"  class="row">
+		 <div id="footer"  class="row" style="font-size: 12px !important;">
+
 			<div class="col-sm-2 col-xs-2">
 
 				<center>
-					<p style="font-size: 14px;">ហត្ថលេខាគណនេយ្យ</p>
-					<p style="font-size: 14px;margin-top:-12px;">ACCOUNTANT</p>
+					<p>ហត្ថលេខាគណនេយ្យ</p>
+					<p style="margin-top:-12px;">ACCOUNTANT</p>
 				</center>
 			</div>
 			<div class="col-sm-3 col-xs-3">
 
 				<center>
-					<p style="font-size: 14px;">ហត្ថលេខាប្រធានឃ្លាំង</p>
-					<p style="font-size: 14px;margin-top:-10px;">STOCK CONTROLLER</p>
+					<p>ហត្ថលេខាប្រធានឃ្លាំង</p>
+					<p style="margin-top:-10px;">STOCK CONTROLLER</p>
 				</center>
 			</div>
 			<div class="col-sm-2 col-xs-2">
 
 				<center>
-					<p style="font-size: 14px;">ហត្ថលេខាអ្នកពិនិត្យ</p>
-					<p style="font-size: 14px;margin-top:-10px;">CHECKED BY</p>
+					<p>ហត្ថលេខាអ្នកពិនិត្យ</p>
+					<p style="margin-top:-10px;">CHECKED BY</p>
 				</center>
 			</div>
 			<div class="col-sm-2 col-xs-2">
 
 				<center>
-					<p style="font-size: 14px;">ហត្ថលេខាអ្នកប្រគល់</p>
-					<p style="font-size: 14px;margin-top:-10px;">DELIVERED BY</p>
+					<p>ហត្ថលេខាអ្នកប្រគល់</p>
+					<p style="margin-top:-10px;">DELIVERED BY</p>
 				</center>
 			</div>
 			<div class="col-sm-3 col-xs-3">
 
 				<center>
-					<p style="font-size: 14px;">ហត្ថលេខាអតិថិជន</p>
-					<p style="margin-top:-10px;font-size: 14px;">CUSTOMER'S SIGNATURE</p>
+					<p>ហត្ថលេខាអតិថិជន</p>
+					<p style="margin-top:-10px;">CUSTOMER'S SIGNATURE</p>
 				</center>
 			</div>
 		</div>

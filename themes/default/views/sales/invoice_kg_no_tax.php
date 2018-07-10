@@ -16,7 +16,7 @@
         width: 100%;
         margin: 20px auto;
         padding: 10px;
-        font-size: 16px;
+
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         position:relative;
         font-family: "DaunPenh";
@@ -147,12 +147,12 @@
                             <?php } ?>
                         </div>
                         <?php //$this->erp->print_arrays($biller); ?>
-                        <div  class="col-sm-7 col-xs-7 company_addr "  style="margin-top: -10px !important;">
+                        <div  class="col-sm-8 col-xs-8 company_addr "  style="margin-top: -10px !important;">
                             <div class="myhide">
                                 <?php if($biller->company) { ?>
-                                    <h4 style="font-family: Khmer OS Muol Light !important;font-size: 19px;text-align: center !important;"><b><?= $biller->company_kh ?></b></h4>
+                                    <h4 style="font-family: Khmer OS Muol Light !important;font-size: 17px;text-align: left !important;"><b><?= $biller->company_kh ?></b></h4>
                                 <?php } ?>
-                                <div style="margin-top: 15px;text-align: left !important;">
+                                <div style="font-size:15px !important; margin-top: 15px;text-align: left !important;">
                                     <?php if(!empty($biller->vat_no)) { ?>
                                         <p>លេខអត្តសញ្ញាណកម្ម អតប :&nbsp;<?= $biller->vat_no; ?></p>
                                     <?php } ?>
@@ -179,11 +179,11 @@
 
                     </div><br>
 
-                    <div class="row" style="text-align: left;">
+                    <div class="row" style="text-align: left;font-size: 12px;">
                         <div class="col-sm-7 col-xs-7">
                             <table >
                                 <tr>
-                                    <td style="width: 25%;font-size: 16px;font-family: 'Khmer OS Muol Light';"><b>អតិថិជនៈ</b></td>
+                                    <td style="width: 25%;font-size: 14px;font-family: 'Khmer OS Muol Light';"><b>អតិថិជនៈ</b></td>
 
                                 </tr>
                                 <?php //$this->erp->print_arrays($customer);?>
@@ -239,7 +239,7 @@
                     </div>
                 </th>
             </tr>
-            <tr class="border thead print" style="">
+            <tr class="border thead print" style="font-size: 13px !important;">
                 <th><b>ល.រ</b></th>
                 <th><b>បរិយាយមុខទំនិញ</b></th>
                 <th><b>បរិមាណ</b></th>
@@ -301,7 +301,7 @@
                     }
                 }
                 ?>
-                <tr class="border">
+                <tr class="border" style="font-size: 12px;">
                     <td style="border-bottom: 1px solid #FFF !important;vertical-align: middle; text-align: center"><?php echo KhmerNumDate($num); ?></td>
                     <td style="border-bottom: 1px solid #FFF !important;vertical-align: middle;">
                         <?=$row->product_name;?>

@@ -5318,7 +5318,7 @@ class Reports extends MY_Controller
             } else {
                 $data = NULL;
             }
-           
+
             if (!empty($data)) {
                 $this->load->library('excel');
                 $this->excel->setActiveSheetIndex(0);
@@ -5327,7 +5327,7 @@ class Reports extends MY_Controller
                 $this->excel->getActiveSheet()->SetCellValue('B1', lang('reference_no'));
                 $this->excel->getActiveSheet()->SetCellValue('C1', lang('product_name'));
                 $this->excel->getActiveSheet()->SetCellValue('D1', lang('grand_total'));
-				$this->excel->getActiveSheet()->SetCellValue('E1', lang('paid'));
+                $this->excel->getActiveSheet()->SetCellValue('E1', lang('paid'));
                 $this->excel->getActiveSheet()->SetCellValue('F1', lang('balance'));
                 $this->excel->getActiveSheet()->SetCellValue('G1', lang('note'));
 
@@ -5361,7 +5361,7 @@ class Reports extends MY_Controller
                 $this->excel->getActiveSheet()->getColumnDimension('E')->setWidth(15);
                 $this->excel->getActiveSheet()->getColumnDimension('F')->setWidth(15);
                 $this->excel->getActiveSheet()->getColumnDimension('G')->setWidth(15);
-            
+
                 $filename = 'sales_report';
                 $this->excel->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
                 if ($pdf) {
@@ -5373,10 +5373,10 @@ class Reports extends MY_Controller
                         )
                     );
                     $this->excel->getDefaultStyle()->applyFromArray($styleArray);
-					$this->excel->getActiveSheet()->getStyle('F2:F' . $row)->getAlignment()->applyFromArray(
-					 array(
-						 'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT
-					 ));
+                    $this->excel->getActiveSheet()->getStyle('F2:F' . $row)->getAlignment()->applyFromArray(
+                        array(
+                            'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT
+                        ));
                     $this->excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
                     require_once(APPPATH . "third_party" . DIRECTORY_SEPARATOR . "MPDF" . DIRECTORY_SEPARATOR . "mpdf.php");
                     $rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
@@ -5397,11 +5397,11 @@ class Reports extends MY_Controller
                 }
                 if ($xls) {
                     $this->excel->getActiveSheet()->getStyle('E2:E' . $row)->getAlignment()->setWrapText(true);
-					$this->excel->getActiveSheet()->getStyle('F2:F' . $row)->getAlignment()->applyFromArray(
-					 array(
-						 'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
-						 'wrap'       => true
-					 ));
+                    $this->excel->getActiveSheet()->getStyle('F2:F' . $row)->getAlignment()->applyFromArray(
+                        array(
+                            'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
+                            'wrap'       => true
+                        ));
                     ob_clean();
                     header('Content-Type: application/vnd.ms-excel');
                     header('Content-Disposition: attachment;filename="' . $filename . '.xls"');
@@ -5422,7 +5422,7 @@ class Reports extends MY_Controller
                 ->select($this->db->dbprefix('sales').".id as id, 
 				".$this->db->dbprefix('sales').".date,
 				".$this->db->dbprefix('payments').".date as pdate,
-				".$this->db->dbprefix('sales').".reference_no, biller.company, ".$this->db->dbprefix('sales').".customer, 
+				".$this->db->dbprefix('sales').".reference_no, biller.company, ".$this->db->dbprefix('sales').".customer, users.username AS saleman,
 										sale_status, ".$this->db->dbprefix('sales').".grand_total,  
 										COALESCE((SELECT SUM(erp_return_sales.grand_total) FROM erp_return_sales WHERE erp_return_sales.sale_id = erp_sales.id), 0) as return_sale,
 										COALESCE((SELECT SUM(IF((erp_payments.paid_by != 'deposit' AND ISNULL(erp_payments.return_id)), erp_payments.amount, IF(NOT ISNULL(erp_payments.return_id), ((-1)*erp_payments.amount), 0))) FROM erp_payments WHERE erp_payments.sale_id = erp_sales.id),0) as paid, 
@@ -5432,6 +5432,7 @@ class Reports extends MY_Controller
 										sales.payment_status")
                 ->from('sales')
                 ->join('payments', 'payments.sale_id=sales.id', 'left')
+                ->join('users', 'users.id = sales.saleman_by', 'left')
                 ->join('erp_return_sales', 'erp_return_sales.sale_id = sales.id', 'left')
                 ->join('companies', 'companies.id=sales.customer_id', 'left')
                 ->join('companies as erp_biller', 'biller.id = sales.biller_id', 'inner')
@@ -19928,7 +19929,7 @@ class Reports extends MY_Controller
 	
 	function sales_actions()
 	{
-		$this->form_validation->set_rules('form_action', lang("form_action"), 'required');
+        $this->form_validation->set_rules('form_action', lang("form_action"), 'required');
         if ($this->form_validation->run() == true) {
 
             if (!empty($_POST['val'])) {
@@ -19947,61 +19948,63 @@ class Reports extends MY_Controller
                     $this->excel->getActiveSheet()->SetCellValue('A1', lang('date'));
                     $this->excel->getActiveSheet()->SetCellValue('B1', lang('reference_no'));
                     $this->excel->getActiveSheet()->SetCellValue('C1', lang('shop'));
-					$this->excel->getActiveSheet()->SetCellValue('D1', lang('customer'));
-					// $this->excel->getActiveSheet()->SetCellValue('E1', lang('product'));
-					// $this->excel->getActiveSheet()->SetCellValue('F1', lang('quantity'));
-					// $this->excel->getActiveSheet()->SetCellValue('G1', lang('cost'));
-					$this->excel->getActiveSheet()->SetCellValue('E1', lang('grand_total'));
-					$this->excel->getActiveSheet()->SetCellValue('F1', lang('paid'));
-					$this->excel->getActiveSheet()->SetCellValue('G1', lang('balance'));
-					$this->excel->getActiveSheet()->SetCellValue('H1', lang('payment_status'));
+                    $this->excel->getActiveSheet()->SetCellValue('D1', lang('customer'));
+                    $this->excel->getActiveSheet()->SetCellValue('E1', lang('Saleman'));
+                    // $this->excel->getActiveSheet()->SetCellValue('E1', lang('product'));
+                    // $this->excel->getActiveSheet()->SetCellValue('F1', lang('quantity'));
+                    // $this->excel->getActiveSheet()->SetCellValue('G1', lang('cost'));
+                    $this->excel->getActiveSheet()->SetCellValue('F1', lang('grand_total'));
+                    $this->excel->getActiveSheet()->SetCellValue('G1', lang('paid'));
+                    $this->excel->getActiveSheet()->SetCellValue('H1', lang('balance'));
+                    $this->excel->getActiveSheet()->SetCellValue('I1', lang('payment_status'));
 
                     $row = 2;
-					$total_qty = 0;
-					$total = 0;
-					$paid = 0;
-					$balance = 0;
-					$total_cost = 0;
+                    $total_qty = 0;
+                    $total = 0;
+                    $paid = 0;
+                    $balance = 0;
+                    $total_cost = 0;
                     foreach ($_POST['val'] as $id) {
                         $sc = $this->reports_model->getSalesExportByID($id);
-						// $this->erp->print_arrays($sc);
+                        // $this->erp->print_arrays($sc);
                         $this->excel->getActiveSheet()->SetCellValue('A' . $row, $sc->date);
                         $this->excel->getActiveSheet()->SetCellValue('B' . $row, $sc->reference_no);
                         $this->excel->getActiveSheet()->SetCellValue('C' . $row, $sc->biller);
-						$this->excel->getActiveSheet()->SetCellValue('D' . $row, $sc->customer);
-      //                $this->excel->getActiveSheet()->SetCellValue('E' . $row, $sc->iname);
-						// $this->excel->getActiveSheet()->SetCellValue('F' . $row, $sc->iqty);
-						// $this->excel->getActiveSheet()->SetCellValue('G' . $row, $sc->icost);
-                        $this->excel->getActiveSheet()->SetCellValue('E' . $row, $this->erp->formatMoney($sc->grand_total));
-						$this->excel->getActiveSheet()->SetCellValue('F' . $row, $this->erp->formatMoney($sc->paid));
-						$this->excel->getActiveSheet()->SetCellValue('G' . $row, $this->erp->formatMoney($sc->balance));
-						$this->excel->getActiveSheet()->SetCellValue('H' . $row, $sc->payment_status);
-                        $this->excel->getActiveSheet()->getStyle('E'. $row.':G'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-                        $this->excel->getActiveSheet()->getStyle('H'. $row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-						// $total_qty += $sc->total_qty;
-						$total += $sc->grand_total;
-						$paid += $sc->paid;
-						$balance += ($sc->grand_total - $sc->paid);
+                        $this->excel->getActiveSheet()->SetCellValue('D' . $row, $sc->customer);
+                        $this->excel->getActiveSheet()->SetCellValue('E' . $row, $sc->saleman);
+                        //                $this->excel->getActiveSheet()->SetCellValue('E' . $row, $sc->iname);
+                        // $this->excel->getActiveSheet()->SetCellValue('F' . $row, $sc->iqty);
+                        // $this->excel->getActiveSheet()->SetCellValue('G' . $row, $sc->icost);
+                        $this->excel->getActiveSheet()->SetCellValue('F' . $row, $this->erp->formatMoney($sc->grand_total));
+                        $this->excel->getActiveSheet()->SetCellValue('G' . $row, $this->erp->formatMoney($sc->paid));
+                        $this->excel->getActiveSheet()->SetCellValue('H' . $row, $this->erp->formatMoney($sc->balance));
+                        $this->excel->getActiveSheet()->SetCellValue('I' . $row, $sc->payment_status);
+                        $this->excel->getActiveSheet()->getStyle('F'. $row.':H'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+                        $this->excel->getActiveSheet()->getStyle('I'. $row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                        // $total_qty += $sc->total_qty;
+                        $total += $sc->grand_total;
+                        $paid += $sc->paid;
+                        $balance += ($sc->grand_total - $sc->paid);
 
-						// $myString = $sc->icost;
-						// $explode_costs = explode("\n", $myString);
+                        // $myString = $sc->icost;
+                        // $explode_costs = explode("\n", $myString);
 
-						// foreach($explode_costs as $c){
-						// 	$total_cost += $c;
-						// }	
+                        // foreach($explode_costs as $c){
+                        // 	$total_cost += $c;
+                        // }
                         $row++;
                     }
 
-                    $this->excel->getActiveSheet()->getStyle("E" . $row . ":G" . $row)->getBorders()
-						->getTop()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-					// $this->excel->getActiveSheet()->SetCellValue('F' . $row, $total_qty);
-					// $this->excel->getActiveSheet()->SetCellValue('G' . $row, $total_cost);
-					$this->excel->getActiveSheet()->SetCellValue('E' . $row, $this->erp->formatMoney($total));
-					$this->excel->getActiveSheet()->SetCellValue('F' . $row, $this->erp->formatMoney($paid));
-					$this->excel->getActiveSheet()->SetCellValue('G' . $row, $this->erp->formatMoney($balance));
-                    $this->excel->getActiveSheet()->getStyle('E'. $row.':G'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+                    $this->excel->getActiveSheet()->getStyle("F" . $row . ":H" . $row)->getBorders()
+                        ->getTop()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
+                    // $this->excel->getActiveSheet()->SetCellValue('F' . $row, $total_qty);
+                    // $this->excel->getActiveSheet()->SetCellValue('G' . $row, $total_cost);
+                    $this->excel->getActiveSheet()->SetCellValue('F' . $row, $this->erp->formatMoney($total));
+                    $this->excel->getActiveSheet()->SetCellValue('G' . $row, $this->erp->formatMoney($paid));
+                    $this->excel->getActiveSheet()->SetCellValue('H' . $row, $this->erp->formatMoney($balance));
+                    $this->excel->getActiveSheet()->getStyle('F'. $row.':H'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 
-                //set font bold,font color,font size,font name and background color to excel  by dara
+                    //set font bold,font color,font size,font name and background color to excel  by dara
                     $styleArrays = array(
                         'font'  => array(
                             'bold'  => true,
@@ -20014,43 +20017,44 @@ class Reports extends MY_Controller
                             'color' => array('rgb' => '428BCA')
                         )
                     );
-                    
-                    $this->excel->getActiveSheet()->getStyle('A1:H1')->applyFromArray($styleArrays);
-					$this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
-					$this->excel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
-					$this->excel->getActiveSheet()->getColumnDimension('C')->setWidth(20);
-					$this->excel->getActiveSheet()->getColumnDimension('D')->setWidth(25);
-					$this->excel->getActiveSheet()->getColumnDimension('E')->setWidth(15);
-					$this->excel->getActiveSheet()->getColumnDimension('F')->setWidth(15);
-					$this->excel->getActiveSheet()->getColumnDimension('G')->setWidth(15);
-					$this->excel->getActiveSheet()->getColumnDimension('H')->setWidth(15);
-					// $this->excel->getActiveSheet()->getColumnDimension('I')->setWidth(15);
-					// $this->excel->getActiveSheet()->getColumnDimension('J')->setWidth(15);
-					// $this->excel->getActiveSheet()->getColumnDimension('K')->setWidth(20);
-				
-				
+
+                    $this->excel->getActiveSheet()->getStyle('A1:I1')->applyFromArray($styleArrays);
+                    $this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
+                    $this->excel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+                    $this->excel->getActiveSheet()->getColumnDimension('C')->setWidth(20);
+                    $this->excel->getActiveSheet()->getColumnDimension('D')->setWidth(25);
+                    $this->excel->getActiveSheet()->getColumnDimension('E')->setWidth(15);
+                    $this->excel->getActiveSheet()->getColumnDimension('F')->setWidth(15);
+                    $this->excel->getActiveSheet()->getColumnDimension('G')->setWidth(15);
+                    $this->excel->getActiveSheet()->getColumnDimension('H')->setWidth(15);
+                    $this->excel->getActiveSheet()->getColumnDimension('I')->setWidth(15);
+                    // $this->excel->getActiveSheet()->getColumnDimension('I')->setWidth(15);
+                    // $this->excel->getActiveSheet()->getColumnDimension('J')->setWidth(15);
+                    // $this->excel->getActiveSheet()->getColumnDimension('K')->setWidth(20);
+
+
                     $this->excel->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
                     $filename = 'sales_report_' . date('Y_m_d_H_i_s');
                     if ($this->input->post('form_action') == 'export_pdf') {
-						$styleArray = array(
-							'borders' => array(
-								'allborders' => array(
-									'style' => PHPExcel_Style_Border::BORDER_THIN
-								)
-							)
-						);
-						$this->excel->getDefaultStyle()->applyFromArray($styleArray);
-						$this->excel->getActiveSheet()->getStyle('F2:F' . $row)->getAlignment()->applyFromArray(
-						 array(
-							 'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT
-						 ));
-						
-						$this->excel->getActiveSheet()->getStyle('G2:G' . $row)->getAlignment()->applyFromArray(
-						 array(
-							 'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT
-						 ));
-						
-						$this->excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+                        $styleArray = array(
+                            'borders' => array(
+                                'allborders' => array(
+                                    'style' => PHPExcel_Style_Border::BORDER_THIN
+                                )
+                            )
+                        );
+                        $this->excel->getDefaultStyle()->applyFromArray($styleArray);
+                        $this->excel->getActiveSheet()->getStyle('F2:F' . $row)->getAlignment()->applyFromArray(
+                            array(
+                                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT
+                            ));
+
+                        $this->excel->getActiveSheet()->getStyle('G2:G' . $row)->getAlignment()->applyFromArray(
+                            array(
+                                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT
+                            ));
+
+                        $this->excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
                         require_once(APPPATH . "third_party" . DIRECTORY_SEPARATOR . "MPDF" . DIRECTORY_SEPARATOR . "mpdf.php");
                         $rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
                         $rendererLibrary = 'MPDF';
@@ -20069,18 +20073,18 @@ class Reports extends MY_Controller
                     }
 
                     if ($this->input->post('form_action') == 'export_excel') {
-						$this->excel->getActiveSheet()->getStyle('E2:E' . $row)->getAlignment()->setWrapText(true);
-						$this->excel->getActiveSheet()->getStyle('F2:F' . $row)->getAlignment()->applyFromArray(
-						 array(
-							 'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
-							 'wrap'       => true
-						 ));
-						 $this->excel->getActiveSheet()->getStyle('G2:G' . $row)->getAlignment()->applyFromArray(
-						 array(
-							 'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
-							 'wrap'       => true
-						 ));
-						ob_clean();
+                        $this->excel->getActiveSheet()->getStyle('E2:E' . $row)->getAlignment()->setWrapText(true);
+                        $this->excel->getActiveSheet()->getStyle('F2:F' . $row)->getAlignment()->applyFromArray(
+                            array(
+                                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
+                                'wrap'       => true
+                            ));
+                        $this->excel->getActiveSheet()->getStyle('G2:G' . $row)->getAlignment()->applyFromArray(
+                            array(
+                                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
+                                'wrap'       => true
+                            ));
+                        ob_clean();
                         header('Content-Type: application/vnd.ms-excel');
                         header('Content-Disposition: attachment;filename="' . $filename . '.xls"');
                         header('Cache-Control: max-age=0');
