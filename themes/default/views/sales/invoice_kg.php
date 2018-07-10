@@ -121,7 +121,7 @@
 					<table style="font-size: 12px !important;">
 
 						<tr>
-							<td style="width: 30%">អតិថិជន <br>Customer Name</td>
+							<td style="width: 50%">ឈ្មោះអតិថិជន <br>Customer Name</td>
 							<td>&nbsp; :</td>
                             <td>&nbsp;<?= $customer->name_kh;?></td>
 							<!--<?php if(!empty($customer->name_kh)) { ?>

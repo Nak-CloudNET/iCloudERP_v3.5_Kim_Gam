@@ -154,7 +154,7 @@
                                         <img class="img-responsive myhide" src="<?= base_url() ?>assets/uploads/logos/<?= $biller->logo; ?>"id="hidedlo" style="width: 140px; " />
                                     <?php } ?>
                                 </div>
-                                <div  class="col-sm-7 col-xs-7  "  style="margin-top: -10px !important;">
+                                <div  class="col-sm-8 col-xs-8  "  style="margin-top: -10px !important;">
                                         <div class="myhide">
                                                 <?php if($biller->company) { ?>
                                                     <h4 style="font-family: Khmer OS Muol Light !important;font-size: 17px;text-align: left !important;"><b><?= $biller->company_kh ?></b></h4>
@@ -198,7 +198,13 @@
                                             <tr>
                                                 <td style="width: 25%;">ឈ្មោះក្រុមហ៊ុន​​​​​​ឬអតិថិជន</td>
                                                 <td style="width: 5%;">:</td>
-                                                <td style="width: 30%;"><?= $customer->name_kh ?></td>
+                                                <td style="width: 30%;">
+                                                    <?php if(!empty($customer->company_kh)) { ?>
+                                                        <?= $customer->company_kh ?>
+                                                    <?php }else { ?>
+                                                        <?= $customer->name_kh ?>
+                                                    <?php } ?>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>ទូរស័ព្ទលេខ</td>

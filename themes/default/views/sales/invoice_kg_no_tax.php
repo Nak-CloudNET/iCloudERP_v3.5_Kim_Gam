@@ -190,16 +190,19 @@
                                 <tr>
                                     <td style="width: 25%;">ឈ្មោះក្រុមហ៊ុន​​​​​​ឬអតិថិជន</td>
                                     <td style="width: 5%;">:</td>
-                                    <td style="width: 30%;"><?= $customer->name_kh ?></td>
+                                    <td style="width: 30%;">
+                                        <?php if(!empty($customer->company_kh)) { ?>
+                                            <?= $customer->company_kh ?>
+                                        <?php }else { ?>
+                                            <?= $customer->name_kh ?>
+                                        <?php } ?>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>អាសយដ្ឋាន </td>
                                     <td>:</td>
-                                    <?php if(!empty($customer->address_kh)) { ?>
-                                        <td><?= $customer->address_kh?></td>
-                                    <?php }else { ?>
-                                        <td><?= $customer->address ?></td>
-                                    <?php } ?>
+                                    <td><?= $customer->address_kh?></td>
+
                                 </tr>
                                 <tr>
                                     <td>ទូរស័ព្ទលេខ</td>
