@@ -89,6 +89,10 @@
                         <?= lang("address", "address"); ?> 
                         <?php echo form_input('address', $customer->address, 'class="form-control" id="address" data-bv-notempty="true"'); ?>
                     </div>
+                    <div class="form-group">
+                        <?= lang("&#6050;&#6070;&#6047;&#6096;&#6041;&#6026;&#6098;&#6027;&#6070;&#6035;", "address_kh"); ?>
+                        <?php echo form_input('address_kh', $customer->address_kh, 'class="form-control" id="address_kh"'); ?>
+                    </div>
 					
 						<div class="form-group">
 							<?= lang("address1", "address1"); ?> 
@@ -156,7 +160,11 @@
                     <div class="form-group company">
                         <?= lang("company", "company"); ?>
                         <?php echo form_input('company', $customer->company, 'class="form-control tip" id="company"'); ?>
-                    </div>					
+                    </div>
+                    <div class="form-group">
+                        <?= lang("&#6016;&#6098;&#6042;&#6075;&#6040;&#6048;&#6090;&#6075;&#6035;", "company_kh"); ?>
+                        <?php echo form_input('company_kh', $customer->company_kh, 'class="form-control" id="company_kh"'); ?>
+                    </div>
 					<div class="form-group">
                         <?= lang("Marital Status", "status"); ?>
                         <?php
